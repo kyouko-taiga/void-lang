@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+
+# macOS and Xcode
+.DS_Store
+xcuserdata/
