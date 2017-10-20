@@ -8,7 +8,8 @@
 namespace voidlang {
 
     struct PrintVisitor: boost::static_visitor<> {
-        PrintVisitor(std::ostream& o): o(o) {}
+        PrintVisitor(std::ostream& o)
+            : o(o) {}
 
         template<typename T>
         void operator()(const T& e) const {
@@ -84,10 +85,10 @@ namespace voidlang {
     struct BinaryExpression;
 
     typedef boost::variant<
-    Literal,
-    Identifier,
-    boost::recursive_wrapper<UnaryExpression>,
-    boost::recursive_wrapper<BinaryExpression>
+        Literal,
+        Identifier,
+        boost::recursive_wrapper<UnaryExpression>,
+        boost::recursive_wrapper<BinaryExpression>
     > Expression;
 
     std::ostream& operator<<(std::ostream& o, const Expression& expr) {
@@ -99,9 +100,9 @@ namespace voidlang {
 
     struct UnaryExpression {
         UnaryExpression(
-                        const Operator&   operator_,
-                        const Expression& operand)
-        : operator_(operator_), operand(operand) {}
+            const Operator&   operator_,
+            const Expression& operand)
+            : operator_(operator_), operand(operand) {}
 
         Operator   operator_;
         Expression operand;
@@ -115,10 +116,10 @@ namespace voidlang {
 
     struct BinaryExpression {
         BinaryExpression(
-                         const Expression& left,
-                         const Operator&   operator_,
-                         const Expression& right)
-        : left(left), operator_(operator_), right(right) {}
+            const Expression& left,
+            const Operator&   operator_,
+            const Expression& right)
+            : left(left), operator_(operator_), right(right) {}
 
         Expression left;
         Operator   operator_;
@@ -138,8 +139,8 @@ namespace voidlang {
     struct PointerType;
 
     typedef boost::variant<
-    VoidType,
-    boost::recursive_wrapper<PointerType>
+        VoidType,
+        boost::recursive_wrapper<PointerType>
     > Type;
 
     std::ostream& operator<<(std::ostream& o, const Type& type) {
@@ -159,7 +160,7 @@ namespace voidlang {
 
     struct PointerType {
         PointerType(Type pointee_type)
-        : pointee_type(pointee_type) {}
+            : pointee_type(pointee_type) {}
 
         Type pointee_type;
     };
@@ -184,5 +185,5 @@ namespace voidlang {
 BOOST_FUSION_ADAPT_STRUCT(voidlang::Literal, (int, value))
 BOOST_FUSION_ADAPT_STRUCT(voidlang::Identifier, (std::string, name))
 BOOST_FUSION_ADAPT_STRUCT(voidlang::VariableDeclaration,
-                          (voidlang::Type, type)
-                          (std::string   , name))
+    (voidlang::Type, type)
+    (std::string   , name))
